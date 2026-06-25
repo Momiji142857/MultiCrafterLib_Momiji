@@ -2,6 +2,7 @@ package momiji.crafters.content.blocks;
 
 import mindustry.gen.Sounds;
 import mindustry.world.draw.*;
+import mindustry.world.meta.Attribute;
 import momiji.crafters.ItemLiquidJunction;
 import momiji.crafters.MultiCrafter;
 import mindustry.content.*;
@@ -30,6 +31,7 @@ public class ExampleBlocks {
             itemCapacity = 40;
             liquidCapacity = 30f;
             rotate = true;
+            rotateDraw = false;
             alwaysUnlocked = true;
 
             recipes = new Recipe[] {
@@ -117,9 +119,16 @@ public class ExampleBlocks {
             consumeItem(Items.beryllium);
             consumePower(0.5f);
 
-            outputLiquid = new LiquidStack(Liquids.water, 0.01f);
+            // outputsPower = true;
+            // consumePowerBuffered(100000);
+            attribute = Attribute.heat;
+            randomItemCapacity = 3;
+            randomResults = ItemStack.with(Items.scrap, 1);
+            emptyWeight = 9;
+            itemCapacity = 30;
 
             rotateDraw = false;
+            rotate = true;
 
             drawer = new DrawMulti(new DrawRegion("-bottom"), new DrawLiquidRegion(), new DrawDefault(), new DrawHeatOutput());
             ambientSound = Sounds.loopExtract;
@@ -129,6 +138,8 @@ public class ExampleBlocks {
             craftTime = 60f * 2f;
             liquidCapacity = 30f;
             heatOutput = 5f;
+
+            maxEfficiency = 2f;
 
             heatRequirement = 10f;
             hasLiquids = true;
