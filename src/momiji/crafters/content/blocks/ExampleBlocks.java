@@ -1,10 +1,12 @@
 package momiji.crafters.content.blocks;
 
 import mindustry.gen.Sounds;
+import mindustry.world.blocks.production.Drill;
+import mindustry.world.blocks.storage.StorageBlock;
 import mindustry.world.draw.*;
 import mindustry.world.meta.Attribute;
-import momiji.crafters.ItemLiquidJunction;
-import momiji.crafters.MultiCrafter;
+import mindustry.world.meta.Env;
+import momiji.crafters.*;
 import mindustry.content.*;
 import mindustry.entities.effect.RadialEffect;
 import mindustry.type.Category;
@@ -12,12 +14,11 @@ import mindustry.type.ItemStack;
 import mindustry.type.LiquidStack;
 import mindustry.type.PayloadStack;
 import mindustry.world.Block;
-import momiji.crafters.OmniCrafter;
 
 import static mindustry.type.ItemStack.with;
 
 public class ExampleBlocks {
-    public static Block testFactory, testFactoryO, itemLiquidJunction;
+    public static Block testFactory, testFactoryO, itemLiquidJunction, LinkedContainer, LinkedMechanicalDrill;
 
     public static void load() {
 
@@ -151,7 +152,26 @@ public class ExampleBlocks {
             capacity = 6;
             health = 30;
             buildCostMultiplier = 6f;
-            solid = false;
         }};
+
+        LinkedContainer = new LinkedBlock("Linked-container"){{
+            requirements(Category.effect, with(Items.titanium, 100));
+            size = 2;
+            itemCapacity = 300;
+            scaledHealth = 55;
+        }};
+
+        LinkedMechanicalDrill = new LinkedDrill("Linked-mechanical-drill"){{
+            requirements(Category.production, with(Items.copper, 12));
+            tier = 2;
+            drillTime = 600;
+            size = 2;
+            //mechanical drill doesn't work in space
+            envEnabled ^= Env.space;
+            researchCost = with(Items.copper, 10);
+
+            consumeLiquid(Liquids.water, 0.05f).boost();
+        }};
+
     }
 }

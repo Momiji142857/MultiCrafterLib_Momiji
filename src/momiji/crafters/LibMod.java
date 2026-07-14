@@ -17,4 +17,9 @@ public class LibMod extends Mod{
 
         ExampleBlocks.load();
     }
+
+    @Override
+    public void init(){
+        // AtlasDebug.initKeyBinds();
+    }
 }

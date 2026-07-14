@@ -678,12 +678,15 @@ public class OmniCrafter extends GenericCrafter {
 
         @Override
         public float heat() {
+            if(!rotate && splitHeat){
+                return outputHeat / 4;
+            }
             return outputHeat;
         }
 
         @Override
         public float heatFrac() {
-            return (heatOutput > 0) ? (outputHeat / heatOutput) / (splitHeat ? 3f : 1) : 0f;
+            return (heatOutput > 0) ? outputHeat / heatOutput : 0f;
         }
 
         //endregion
