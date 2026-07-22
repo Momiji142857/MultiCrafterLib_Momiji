@@ -1,4 +1,4 @@
-package momiji.crafters;
+package momiji;
 
 import arc.struct.EnumSet;
 import arc.struct.IntSet;
@@ -74,8 +74,7 @@ public class LinkedBlock extends Block {
         @Override
         public boolean canDump(Building to, Item item){
             //不向同组成员输出物品, 共享同一个物品池, 输出无效
-            if(to.block == block && to instanceof LinkedBuild lb && lb.team == team && lb.leader() == leader()) return false;
-            return true;
+            return to.block != block || !(to instanceof LinkedBuild lb) || lb.team != team || lb.leader() != leader();
         }
 
         @Override

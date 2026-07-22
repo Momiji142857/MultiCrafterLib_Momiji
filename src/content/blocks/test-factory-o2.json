@@ -1,0 +1,60 @@
+{
+  "type": "OmniCrafter",
+  "category": "crafting",
+  "size": 3,
+  "requirements": [
+    {"item": "graphite", "amount": 80},
+    {"item": "silicon", "amount": 100},
+    {"item": "beryllium", "amount": 120},
+    {"item": "tungsten", "amount": 120}
+  ],
+  "consumes": {
+    "items": {
+      "items": [ "beryllium/1" ]
+    },
+    "liquids": {
+      "liquids": [ "ozone/0.033333333333" ]
+    },
+    "power": 0.5
+  },
+  "outputItems": [ "oxide/1" ],
+  "researchCostMultiplier": 0.3,
+  "hasPower": true,
+  "hasItems": true,
+  "hasLiquids": true,
+  "craftTime": 120,
+  "liquidCapacity": 30,
+  "itemCapacity": 30,
+  "ambientSound": "loopExtract",
+  "ambientSoundVolume": 0.08,
+  "rotateDraw": false,
+  "rotate": true,
+  "attribute": "heat",
+  "randomItemCapacity": 3,
+  "randomResults": [
+    {"item": "scrap", "amount": 1}
+  ],
+  "emptyWeight": 9,
+  "maxEfficiency": 2,
+  "heatRequirement": 10,
+  "heatOutput": 5,
+  "drawer": {
+    "type": "DrawMulti",
+    "drawers": [
+      {
+        "type": "DrawRegion",
+        "suffix": "-bottom"
+      },
+      {
+        "type": "DrawLiquidRegion",
+        "drawLiquid": "ozone"
+      },
+      {
+        "type": "DrawDefault"
+      },
+      {
+        "type": "DrawHeatOutput"
+      }
+    ]
+  }
+}

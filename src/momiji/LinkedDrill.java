@@ -1,4 +1,4 @@
-package momiji.crafters;
+package momiji;
 
 import arc.Core;
 import arc.graphics.Blending;
@@ -130,7 +130,7 @@ public class LinkedDrill extends LinkedBlock{
     public void setBars(){
         super.setBars();
 
-        addBar("drillspeed", (LinkedDrillBuild e) ->
+        addBar("drillSpeed", (LinkedDrillBuild e) ->
                 new Bar(() -> Core.bundle.format("bar.drillspeed", Strings.fixed(e.lastDrillSpeed * 60 * e.timeScale(), 2)), () -> Pal.ammo, () -> e.warmup));
     }
 

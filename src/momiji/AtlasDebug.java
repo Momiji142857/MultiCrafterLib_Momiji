@@ -1,4 +1,4 @@
-package momiji.crafters;
+package momiji;
 
 import arc.*;
 import arc.files.*;
@@ -10,7 +10,6 @@ import arc.struct.*;
 import arc.util.*;
 import mindustry.game.EventType.*;
 import mindustry.gen.*;
-import mindustry.mod.*;
 
 import static mindustry.Vars.*;
 

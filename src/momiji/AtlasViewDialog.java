@@ -1,4 +1,4 @@
-package momiji.crafters;
+package momiji;
 
 import arc.*;
 import arc.graphics.*;
@@ -13,8 +13,6 @@ import arc.struct.*;
 import mindustry.ui.*;
 import mindustry.ui.dialogs.*;
 
-import static mindustry.Vars.*;
-
 /**
  * 贴图集查看对话框.
  * <p>
@@ -28,9 +26,9 @@ public class AtlasViewDialog extends BaseDialog{
 
     private final Seq<Texture> pages;
     private Texture currentPage;
-    private TextureRegion pageRegion;
+    private final TextureRegion pageRegion;
     private int pageIndex;
-    private Label pageLabel;
+    private final Label pageLabel;
 
     private float zoom = 1f;
     private float offsetX, offsetY;

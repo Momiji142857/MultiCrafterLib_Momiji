@@ -1,0 +1,14 @@
+{
+  "type": "ItemLiquidJunction",
+  "category": "distribution",
+  "size": 1,
+  "requirements": [
+    {"item": "copper", "amount": 3},
+    {"item": "metaglass", "amount": 8},
+    {"item": "graphite", "amount": 4}
+  ],
+  "speed": 26,
+  "capacity": 6,
+  "health": 30,
+  "buildCostMultiplier": 6
+}

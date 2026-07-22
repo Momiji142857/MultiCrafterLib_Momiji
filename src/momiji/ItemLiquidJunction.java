@@ -1,4 +1,4 @@
-package momiji.crafters;
+package momiji;
 
 import arc.util.Strings;
 import arc.util.Time;
@@ -33,6 +33,7 @@ public class ItemLiquidJunction extends LiquidJunction {
 
     public ItemLiquidJunction(String name){
         super(name);
+        update = true;
         solid = false;
         underBullets = true;
         group = BlockGroup.transportation;
@@ -46,9 +47,7 @@ public class ItemLiquidJunction extends LiquidJunction {
         super.setStats();
 
         stats.add(Stat.itemsMoved, displayedSpeed, StatUnit.itemsSecond);
-        stats.add(Stat.itemCapacity, table -> {
-            table.add(Strings.autoFixed(capacity, 2) + " " + StatUnit.items.localized() + " " + StatUnit.perSide.localized());
-        });
+        stats.add(Stat.itemCapacity, table -> table.add(Strings.autoFixed(capacity, 2) + " " + StatUnit.items.localized() + " " + StatUnit.perSide.localized()));
     }
 
     @Override
@@ -56,7 +55,7 @@ public class ItemLiquidJunction extends LiquidJunction {
         return true;
     }
 
-    public class ItemLiquidJunctionBuild extends LiquidJunctionBuild {
+    public class ItemLiquidJunctionBuild extends LiquidJunctionBuild{
         public DirectionalItemBuffer buffer = new DirectionalItemBuffer(capacity);
 
         @Override
@@ -79,9 +78,7 @@ public class ItemLiquidJunction extends LiquidJunction {
                         Building dest = nearby(i);
 
                         //skip blocks that don't want the item, keep waiting until they do
-                        if(item == null || dest == null || !dest.acceptItem(this, item) || dest.team != team){
-                            continue;
-                        }
+                        if(item == null || dest == null || !dest.acceptItem(this, item) || dest.team != team) continue;
 
                         dest.handleItem(this, item);
                         System.arraycopy(buffer.buffers[i], 1, buffer.buffers[i], 0, buffer.indexes[i] - 1);

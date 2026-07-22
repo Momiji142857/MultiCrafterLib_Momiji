@@ -12,6 +12,7 @@
   "itemCapacity": 40,
   "liquidCapacity": 30,
   "rotate": true,
+  "rotateDraw": false,
   "alwaysUnlocked" : true,
 
   "recipes": [

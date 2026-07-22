@@ -1,4 +1,4 @@
-package momiji.crafters;
+package momiji;
 
 import arc.Core;
 import arc.Events;

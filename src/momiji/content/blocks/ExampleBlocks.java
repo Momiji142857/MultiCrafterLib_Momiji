@@ -1,12 +1,10 @@
-package momiji.crafters.content.blocks;
+package momiji.content.blocks;
 
 import mindustry.gen.Sounds;
-import mindustry.world.blocks.production.Drill;
-import mindustry.world.blocks.storage.StorageBlock;
 import mindustry.world.draw.*;
 import mindustry.world.meta.Attribute;
 import mindustry.world.meta.Env;
-import momiji.crafters.*;
+import momiji.*;
 import mindustry.content.*;
 import mindustry.entities.effect.RadialEffect;
 import mindustry.type.Category;
@@ -114,14 +112,12 @@ public class ExampleBlocks {
             size = 3;
 
             outputItem = new ItemStack(Items.oxide, 1);
-            researchCostMultiplier = 1.1f;
+            researchCostMultiplier = 0.3f;
 
             consumeLiquid(Liquids.ozone, 2f / 60f);
             consumeItem(Items.beryllium);
             consumePower(0.5f);
 
-            // outputsPower = true;
-            // consumePowerBuffered(100000);
             attribute = Attribute.heat;
             randomItemCapacity = 3;
             randomResults = ItemStack.with(Items.scrap, 1);
