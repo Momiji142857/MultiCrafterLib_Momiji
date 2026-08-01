@@ -250,6 +250,11 @@ public class LinkedDrill extends LinkedBlock{
         return drops != null && drops.hardness <= tier && (blockedItems == null || !blockedItems.contains(drops));
     }
 
+    @Override
+    public boolean outputsItems(){
+        return true;
+    }
+
     public class LinkedDrillBuild extends LinkedBuild{
         public float progress;
         public float warmup;

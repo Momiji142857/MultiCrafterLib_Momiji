@@ -4,6 +4,7 @@ import arc.Core;
 import arc.func.Func;
 import arc.graphics.Color;
 import arc.math.Mathf;
+import arc.scene.ui.layout.Table;
 import arc.struct.ObjectSet;
 import arc.struct.Seq;
 import arc.util.Nullable;
@@ -21,6 +22,7 @@ import mindustry.type.ItemStack;
 import mindustry.type.Liquid;
 import mindustry.ui.Bar;
 import mindustry.ui.Fonts;
+import mindustry.ui.Styles;
 import mindustry.world.Block;
 import mindustry.world.Tile;
 import mindustry.world.blocks.heat.HeatBlock;
@@ -37,6 +39,8 @@ import mindustry.world.draw.DrawDefault;
 import mindustry.world.draw.DrawHeatOutput;
 import mindustry.world.draw.DrawMulti;
 import mindustry.world.meta.*;
+
+import static mindustry.world.meta.StatValues.stack;
 
 /**
  * 目标是啥都能干的工厂.
@@ -65,7 +69,7 @@ public class OmniCrafter extends GenericCrafter {
     // HeatCrafter
 
     /** Base heat requirement for 100% efficiency. */
-    public float heatRequirement = 10f;
+    public float heatRequirement = 0f;
     /** After heat meets this requirement, excess heat will be scaled by this number. */
     public float overheatScale = 1f;
     /** Maximum possible efficiency after overheat. */
@@ -171,14 +175,16 @@ public class OmniCrafter extends GenericCrafter {
         if (randomResults != null) {
             stats.add(Stat.output, table -> {
                 for(ItemStack stack : randomResults){
-                    table.add(StatValues.displayItemPercent(stack.item, (int)((float)stack.amount / weightSum * 100), true)).padRight(5);
+                    table.add(displayRandomItemPercent(stack.item, ((float)stack.amount / weightSum * 100), true)).padRight(5);
                 }
             });
         }
 
         // HeatCrafter
-        stats.add(Stat.input, heatRequirement, StatUnit.heatUnits);
-        stats.add(Stat.maxEfficiency, (int)(maxEfficiency * 100f), StatUnit.percent);
+        if (heatRequirement > 0) {
+            stats.add(Stat.input, heatRequirement, StatUnit.heatUnits);
+            stats.add(Stat.maxEfficiency, (int)(maxEfficiency * 100f), StatUnit.percent);
+        }
 
         // HeatProducer
         if (heatOutput > 0) {
@@ -191,6 +197,13 @@ public class OmniCrafter extends GenericCrafter {
         }
 
     }
+
+    public Table displayRandomItemPercent(Item item, float percent, boolean showName) {{
+        Table t = new Table();
+        t.add(stack(item, 0, !showName));
+        t.add((showName ? item.localizedName + "\n" : "") + "[lightgray]" +  fmtNum(percent) + "%").padLeft(2).padRight(5).style(Styles.outlineLabel);
+        return t;
+    }}
 
     @Override
     public void setBars() {
@@ -210,6 +223,7 @@ public class OmniCrafter extends GenericCrafter {
 
         if (consPower != null) {
             removeBar("power");
+            removeBar("inputPower");
             boolean buffered = consPower.buffered;
 
             addBar("inputPower", entity -> new Bar(
@@ -239,6 +253,7 @@ public class OmniCrafter extends GenericCrafter {
 
         if (hasPower && outputsPower) {
             removeBar("power");
+            removeBar("outputPower");
             addBar("outputPower", (OmniCrafterBuild entity) -> new Bar(() ->
                     Core.bundle.format("bar.poweroutput",
                             Strings.fixed(entity.getPowerProduction() * 60 * entity.timeScale(), 1)),
@@ -247,6 +262,7 @@ public class OmniCrafter extends GenericCrafter {
         }
 
         if (hasLiquids) {
+            removeBar("liquid");
             boolean added = false;
 
             for (var consl : consumers) {
@@ -462,12 +478,14 @@ public class OmniCrafter extends GenericCrafter {
 
                 if (randomResults != null) {
                     int total = 0;
-                    for (Item output : randomOutputItems) {
-                        total += items.get(output);
-                        if (total >= randomItemCapacity) {
-                            if (!dumpExtraItem) return false;
+                    if (randomOutputItems != null) {
+                        for (Item output : randomOutputItems) {
+                            total += items.get(output);
+                            if (total >= randomItemCapacity) {
+                                if (!dumpExtraItem) return false;
 
-                        } else allFull = false;
+                            } else allFull = false;
+                        }
                     }
                 }
 
@@ -520,6 +538,17 @@ public class OmniCrafter extends GenericCrafter {
             dumpOutputs();
 
             outputHeat = Mathf.approachDelta(outputHeat, heatOutput * efficiency, warmupRate * delta());
+        }
+
+        @Override
+        public void dumpOutputs(){
+            super.dumpOutputs();
+
+            if(randomOutputItems != null && timer(timerDump, dumpTime / timeScale)){
+                for(Item output : randomOutputItems){
+                    dump(output);
+                }
+            }
         }
 
         @Override

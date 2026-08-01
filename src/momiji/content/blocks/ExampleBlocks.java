@@ -1,6 +1,7 @@
 package momiji.content.blocks;
 
 import mindustry.gen.Sounds;
+import mindustry.world.blocks.distribution.BufferedItemBridge;
 import mindustry.world.draw.*;
 import mindustry.world.meta.Attribute;
 import mindustry.world.meta.Env;
@@ -16,7 +17,7 @@ import mindustry.world.Block;
 import static mindustry.type.ItemStack.with;
 
 public class ExampleBlocks {
-    public static Block testFactory, testFactoryO, itemLiquidJunction, LinkedContainer, LinkedMechanicalDrill;
+    public static Block testFactory, testFactoryO, itemLiquidJunction, LinkedContainer, LinkedMechanicalDrill, itemBridgePro;
 
     public static void load() {
 
@@ -169,5 +170,16 @@ public class ExampleBlocks {
             consumeLiquid(Liquids.water, 0.05f).boost();
         }};
 
+        itemBridgePro = new BatchDumpBridge("bridge-conveyor-pro"){{
+            requirements(Category.distribution, with(Items.phaseFabric, 5, Items.silicon, 7, Items.lead, 10, Items.graphite, 10));
+            range = 12;
+            transportTime = 2f;
+            arrowPeriod = 0.9f;
+            arrowTimeScl = 2.75f;
+            hasPower = true;
+            pulse = true;
+            envEnabled |= Env.space;
+            consumePower(0.30f);
+        }};
     }
 }
