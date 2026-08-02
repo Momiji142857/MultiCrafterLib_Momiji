@@ -1,4 +1,4 @@
-package momiji;
+package momiji.type;
 
 import arc.Core;
 import arc.graphics.Blending;

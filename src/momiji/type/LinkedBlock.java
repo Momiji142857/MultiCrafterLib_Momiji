@@ -1,4 +1,4 @@
-package momiji;
+package momiji.type;
 
 import arc.struct.EnumSet;
 import arc.struct.IntSet;

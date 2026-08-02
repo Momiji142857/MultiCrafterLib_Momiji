@@ -3,7 +3,8 @@ package momiji;
 import arc.util.Log;
 import mindustry.mod.ClassMap;
 import mindustry.mod.Mod;
-import momiji.content.blocks.ExampleBlocks;
+import momiji.content.ExampleBlocks;
+import momiji.type.*;
 
 public class LibMod extends Mod {
 

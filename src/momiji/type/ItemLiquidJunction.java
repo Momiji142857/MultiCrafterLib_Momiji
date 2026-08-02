@@ -1,4 +1,4 @@
-package momiji;
+package momiji.type;
 
 import arc.util.Strings;
 import arc.util.Time;

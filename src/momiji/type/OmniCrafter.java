@@ -1,4 +1,4 @@
-package momiji;
+package momiji.type;
 
 import arc.Core;
 import arc.func.Func;
@@ -285,7 +285,6 @@ public class OmniCrafter extends GenericCrafter {
             }
 
             if (!added) {
-                removeBar("liquid");
                 addLiquidBar(build -> build.liquids.current());
             }
         }
@@ -300,6 +299,7 @@ public class OmniCrafter extends GenericCrafter {
         }
 
         if (heatRequirement > 0) {
+            removeBar("inputHeat");
             addBar("inputHeat", (OmniCrafterBuild entity) ->
                     new Bar(() ->
                             Core.bundle.format("bar.heatpercent", (int)(entity.inputHeat + 0.01f), (int)(entity.efficiencyScale() * 100 + 0.01f)),
@@ -308,11 +308,13 @@ public class OmniCrafter extends GenericCrafter {
         }
 
         if (heatOutput > 0) {
+            removeBar("outputHeat");
             addBar("outputHeat", (OmniCrafterBuild entity) -> new Bar("bar.heat", Pal.lightOrange,
                     () -> entity.outputHeat / ((entity.efficiencyScale() > 1f) ? (heatOutput * entity.efficiencyScale()) : heatOutput)));
         }
 
         if (displayEfficiency && attribute != null) {
+            removeBar("efficiency");
             addBar("efficiency", (OmniCrafterBuild entity) ->
                     new Bar(
                             () -> Core.bundle.format("bar.efficiency", (int)(entity.efficiencyMultiplier() * 100 * displayEfficiencyScale)),

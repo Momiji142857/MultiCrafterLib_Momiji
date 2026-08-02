@@ -1,7 +1,6 @@
-package momiji.content.blocks;
+package momiji.content;
 
 import mindustry.gen.Sounds;
-import mindustry.world.blocks.distribution.BufferedItemBridge;
 import mindustry.world.draw.*;
 import mindustry.world.meta.Attribute;
 import mindustry.world.meta.Env;
@@ -13,11 +12,12 @@ import mindustry.type.ItemStack;
 import mindustry.type.LiquidStack;
 import mindustry.type.PayloadStack;
 import mindustry.world.Block;
+import momiji.type.*;
 
 import static mindustry.type.ItemStack.with;
 
 public class ExampleBlocks {
-    public static Block testFactory, testFactoryO, itemLiquidJunction, LinkedContainer, LinkedMechanicalDrill, itemBridgePro;
+    public static Block testFactory, testFactoryO, itemLiquidJunction, LinkedContainer, LinkedMechanicalDrill, itemBridgePro, laserDrillPro;
 
     public static void load() {
 
@@ -181,5 +181,19 @@ public class ExampleBlocks {
             envEnabled |= Env.space;
             consumePower(0.30f);
         }};
+
+        laserDrillPro = new CoolantDrill("laser-drill-pro") {{
+            requirements(Category.production, with(Items.copper, 35, Items.graphite, 30, Items.silicon, 30, Items.titanium, 20));
+            drillTime = 280;
+            size = 3;
+            hasPower = true;
+            tier = 4;
+            updateEffect = Fx.pulverizeMedium;
+            drillEffect = Fx.mineBig;
+
+            consumePower(1.10f);
+            consumeCoolant(0.08f).boost();
+        }};
+
     }
 }
